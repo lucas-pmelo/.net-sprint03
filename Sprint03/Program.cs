@@ -1,9 +1,23 @@
+using Microsoft.EntityFrameworkCore;
+using Sprint03.adapter.output.database;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Load environment variables from .env file
+DotNetEnv.Env.Load();
+
+// Get the connection string from environment variable
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseOracle(connectionString);
+});
 
 var app = builder.Build();
 
