@@ -1,4 +1,9 @@
-public class CustomerNotFoundException : Exception
+using System;
+
+namespace Sprint03.domain.exceptions
 {
-    public CustomerNotFoundException(string message) : base(message) { }
+    public class CustomerNotFoundException : Exception
+    {
+        public CustomerNotFoundException(string message) : base(message) { }
+    }
 }

@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
 using Sprint03.domain.model;
 using Sprint03.domain.useCase.dto;
-using System.Linq;
 using Sprint03.adapter.input.dto;
+using Sprint03.domain.exceptions;
+using System.Linq;
 
 namespace Sprint03.adapter.input
 {
@@ -20,7 +21,14 @@ namespace Sprint03.adapter.input
         public Customer FindById(string id)
         {
             ValidateId(id);
-            return _customerUseCase.FindById(id);
+            var customer = _customerUseCase.FindById(id);
+    
+            if (customer == null)
+            {
+                throw new CustomerNotFoundException($"Customer with ID {id} not found.");
+            }
+
+            return customer;
         }
 
         public void Create(Customer customer)
@@ -46,7 +54,7 @@ namespace Sprint03.adapter.input
         {
             if (string.IsNullOrWhiteSpace(id) || !Guid.TryParse(id, out _))
             {
-                throw new ArgumentException("Invalid ID format. ID must be a valid UUID.", nameof(id));
+                throw new InvalidIdFormatException("Invalid ID format. ID must be a valid UUID.");
             }
         }
 
@@ -56,7 +64,7 @@ namespace Sprint03.adapter.input
 
             if (!validationResult.IsValid)
             {
-                throw new ArgumentException(
+                throw new InvalidCustomerException(
                     string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))
                 );
             }
