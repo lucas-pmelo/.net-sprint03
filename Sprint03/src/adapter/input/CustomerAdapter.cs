@@ -1,86 +1,65 @@
-﻿using Sprint03.adapter.input.dto;
+﻿using FluentValidation;
 using Sprint03.domain.model;
 using Sprint03.domain.useCase.dto;
+using System.Linq;
+using Sprint03.adapter.input.dto;
 
-namespace Sprint03.adapter.input;
-
-public class CustomerAdapter : ICustomerAdapter
+namespace Sprint03.adapter.input
 {
-    private readonly ICustomerUseCase _customerUseCase;
-
-    public CustomerAdapter(ICustomerUseCase customerUseCase)
+    public class CustomerAdapter : ICustomerAdapter
     {
-        _customerUseCase = customerUseCase;
-    }
+        private readonly ICustomerUseCase _customerUseCase;
+        private readonly IValidator<Customer> _customerValidator;
 
-    public Customer FindById(string id)
-    {
-        ValidateId(id);
-        return _customerUseCase.FindById(id);
-    }
-
-    public void Create(Customer customer)
-    {
-        ValidateCustomer(customer);
-        _customerUseCase.Create(customer);
-    }
-
-    public Customer Update(string id, Customer customer)
-    {
-        ValidateId(id);
-        ValidateCustomer(customer);
-        return _customerUseCase.Update(id, customer);
-    }
-
-    public void Delete(string id)
-    {
-        ValidateId(id);
-        _customerUseCase.Delete(id);
-    }
-
-    private void ValidateId(string id)
-    {
-        if (string.IsNullOrWhiteSpace(id))
+        public CustomerAdapter(ICustomerUseCase customerUseCase, IValidator<Customer> customerValidator)
         {
-            throw new ArgumentException("ID cannot be null or empty.", nameof(id));
+            _customerUseCase = customerUseCase;
+            _customerValidator = customerValidator;
         }
 
-        if (!Guid.TryParse(id, out _))
+        public Customer FindById(string id)
         {
-            throw new ArgumentException("Invalid ID format. ID must be a valid UUID.", nameof(id));
-        }
-    }
-
-    private void ValidateCustomer(Customer customer)
-    {
-        if (customer == null)
-        {
-            throw new ArgumentNullException(nameof(customer));
+            ValidateId(id);
+            return _customerUseCase.FindById(id);
         }
 
-        if (string.IsNullOrWhiteSpace(customer.Name))
+        public void Create(Customer customer)
         {
-            throw new ArgumentException("Name cannot be null or empty.", nameof(customer.Name));
+            ValidateCustomer(customer);
+            _customerUseCase.Create(customer);
         }
 
-        if (string.IsNullOrWhiteSpace(customer.Document))
+        public Customer Update(string id, Customer customer)
         {
-            throw new ArgumentException("Document cannot be null or empty.", nameof(customer.Document));
+            ValidateId(id);
+            ValidateCustomer(customer);
+            return _customerUseCase.Update(id, customer);
         }
 
-        if (string.IsNullOrWhiteSpace(customer.Cep))
+        public void Delete(string id)
         {
-            throw new ArgumentException("CEP cannot be null or empty.", nameof(customer.Cep));
+            ValidateId(id);
+            _customerUseCase.Delete(id);
         }
 
-        if (customer.BirthDate == DateTime.MinValue)
+        private void ValidateId(string id)
         {
-            throw new ArgumentException("BirthDate cannot be null or empty.", nameof(customer.BirthDate));
+            if (string.IsNullOrWhiteSpace(id) || !Guid.TryParse(id, out _))
+            {
+                throw new ArgumentException("Invalid ID format. ID must be a valid UUID.", nameof(id));
+            }
         }
 
-        if (customer.AgreementId <= 0)
+        private void ValidateCustomer(Customer customer)
         {
-            throw new ArgumentException("AgreementId must be greater than zero.", nameof(customer.AgreementId));
+            var validationResult = _customerValidator.Validate(customer);
+
+            if (!validationResult.IsValid)
+            {
+                throw new ArgumentException(
+                    string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))
+                );
+            }
         }
     }
 }

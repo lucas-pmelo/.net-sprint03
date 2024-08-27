@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "\\\\wsl.localhost\\Ubuntu\\home\\lucas\\codes\\faculdade\\net\\Sprint03\\Sprint03\\Sprint03.csproj": {}
+    "/home/lucaspmelo/Desktop/FACULDADE/2ano/net/net-sprint03/Sprint03/Sprint03.csproj": {}
   },
   "projects": {
-    "\\\\wsl.localhost\\Ubuntu\\home\\lucas\\codes\\faculdade\\net\\Sprint03\\Sprint03\\Sprint03.csproj": {
+    "/home/lucaspmelo/Desktop/FACULDADE/2ano/net/net-sprint03/Sprint03/Sprint03.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\wsl.localhost\\Ubuntu\\home\\lucas\\codes\\faculdade\\net\\Sprint03\\Sprint03\\Sprint03.csproj",
+        "projectUniqueName": "/home/lucaspmelo/Desktop/FACULDADE/2ano/net/net-sprint03/Sprint03/Sprint03.csproj",
         "projectName": "Sprint03",
-        "projectPath": "\\\\wsl.localhost\\Ubuntu\\home\\lucas\\codes\\faculdade\\net\\Sprint03\\Sprint03\\Sprint03.csproj",
-        "packagesPath": "C:\\Users\\Lucas\\.nuget\\packages\\",
-        "outputPath": "\\\\wsl.localhost\\Ubuntu\\home\\lucas\\codes\\faculdade\\net\\Sprint03\\Sprint03\\obj\\",
+        "projectPath": "/home/lucaspmelo/Desktop/FACULDADE/2ano/net/net-sprint03/Sprint03/Sprint03.csproj",
+        "packagesPath": "/home/lucaspmelo/.nuget/packages/",
+        "outputPath": "/home/lucaspmelo/Desktop/FACULDADE/2ano/net/net-sprint03/Sprint03/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/lucaspmelo/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -32,6 +32,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -42,13 +47,21 @@
               "target": "Package",
               "version": "[3.1.0, )"
             },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.9.2, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.7, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[9.0.0-preview.7.24405.3, )"
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[8.0.8, )"
             },
             "Oracle.EntityFrameworkCore": {
               "target": "Package",
@@ -78,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\Lucas\\.dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
