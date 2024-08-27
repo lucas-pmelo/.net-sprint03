@@ -1,7 +1,7 @@
 namespace Sprint03.infra.validator;
 
 using FluentValidation;
-using Sprint03.domain.model;
+using domain.model;
 
 public class CustomerValidator : AbstractValidator<Customer>
 {
@@ -23,4 +23,3 @@ public class CustomerValidator : AbstractValidator<Customer>
             .GreaterThan(0).WithMessage("AgreementId must be greater than zero.");
     }
 }
-

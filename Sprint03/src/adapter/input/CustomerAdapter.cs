@@ -2,8 +2,7 @@
 using Sprint03.domain.model;
 using Sprint03.domain.useCase.dto;
 using Sprint03.adapter.input.dto;
-using Sprint03.domain.exceptions;
-using System.Linq;
+using Sprint03.infra.exception;
 
 namespace Sprint03.adapter.input
 {
@@ -25,7 +24,7 @@ namespace Sprint03.adapter.input
     
             if (customer == null)
             {
-                throw new CustomerNotFoundException($"Customer with ID {id} not found.");
+                throw new NotFoundException($"Customer with ID {id} not found.");
             }
 
             return customer;
@@ -64,7 +63,7 @@ namespace Sprint03.adapter.input
 
             if (!validationResult.IsValid)
             {
-                throw new InvalidCustomerException(
+                throw new InvalidException(
                     string.Join(", ", validationResult.Errors.Select(e => e.ErrorMessage))
                 );
             }

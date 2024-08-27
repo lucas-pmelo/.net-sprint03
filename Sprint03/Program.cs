@@ -11,11 +11,9 @@ using Sprint03.infra.validator;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Load environment variables from .env file
 DotNetEnv.Env.Load();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -24,20 +22,24 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=oracle.fiap.com.br)(PORT=1521)))\n(CONNECT_DATA=(SERVER=DEDICATED)(SID=ORCL)));User Id=RM97707;Password=220600;");
 });
 
-// Adiciona controladores
 builder.Services.AddControllers();
 
-// Registra adaptadores, casos de uso e repositórios
+//CUSTOMER
 builder.Services.AddScoped<ICustomerAdapter, CustomerAdapter>();
 builder.Services.AddScoped<ICustomerUseCase, CustomerUseCase>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
-// Registra validadores
 builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
+
+//AGREEMENT
+builder.Services.AddScoped<IAgreementAdapter, AgreementAdapter>();
+builder.Services.AddScoped<IAgreementUseCase, AgreementUseCase>();
+builder.Services.AddScoped<IAgreementRepository, AgreementRepository>();
+
+builder.Services.AddScoped<IValidator<Agreement>, AgreementValidator>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -48,6 +50,6 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers(); // Garante que os endpoints dos controladores sejam mapeados
+app.MapControllers();
 
 app.Run();

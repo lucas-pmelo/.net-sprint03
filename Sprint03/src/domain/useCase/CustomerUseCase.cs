@@ -1,4 +1,4 @@
-﻿using Sprint03.domain.exceptions;
+﻿using Sprint03.infra.exception;
 using Sprint03.domain.model;
 using Sprint03.domain.repository;
 using Sprint03.domain.useCase.dto;
@@ -20,7 +20,7 @@ namespace Sprint03.domain.useCase
 
             if (customer == null)
             {
-                throw new CustomerNotFoundException($"Customer with ID {id} not found.");
+                throw new NotFoundException($"Customer with ID {id} not found.");
             }
 
             return customer;
@@ -32,7 +32,7 @@ namespace Sprint03.domain.useCase
 
             if (persistedCustomer != null)
             {
-                throw new CustomerAlreadyExistsException($"Customer with ID {customer.Id} already exists.");
+                throw new AlreadyExistsException($"Customer with ID {customer.Id} already exists.");
             }
 
             _customerRepository.Create(customer);
@@ -44,7 +44,7 @@ namespace Sprint03.domain.useCase
 
             if (persistedCustomer == null)
             {
-                throw new CustomerNotFoundException($"Customer with ID {id} not found.");
+                throw new NotFoundException($"Customer with ID {id} not found.");
             }
 
             _customerRepository.Update(id, customer);
@@ -58,7 +58,7 @@ namespace Sprint03.domain.useCase
 
             if (persistedCustomer == null)
             {
-                throw new CustomerNotFoundException($"Customer with ID {id} not found.");
+                throw new NotFoundException($"Customer with ID {id} not found.");
             }
 
             _customerRepository.Delete(id);

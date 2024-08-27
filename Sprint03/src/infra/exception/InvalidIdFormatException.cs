@@ -1,6 +1,4 @@
-using System;
-
-namespace Sprint03.domain.exceptions
+namespace Sprint03.infra.exception
 {
     public class InvalidIdFormatException : Exception
     {

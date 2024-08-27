@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sprint03.adapter.input.dto;
 using Sprint03.domain.model;
-using Sprint03.domain.exceptions;
+using Sprint03.infra.exception;
 
-namespace Sprint03.application.controller
+namespace Sprint03.app.controller
 {
     [ApiController]
     [Route("api/customer")]
@@ -24,7 +24,7 @@ namespace Sprint03.application.controller
                 var customer = _customerAdapter.FindById(id);
                 return Ok(customer);
             }
-            catch (CustomerNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(new { message = ex.Message });
             }
@@ -34,7 +34,6 @@ namespace Sprint03.application.controller
             }
             catch (Exception ex)
             {
-                // Para quaisquer exceções inesperadas
                 return StatusCode(StatusCodes.Status500InternalServerError, new { message = ex.Message });
             }
         }
@@ -47,7 +46,7 @@ namespace Sprint03.application.controller
                 _customerAdapter.Create(customer);
                 return CreatedAtAction(nameof(FindById), new { id = customer.Id }, customer);
             }
-            catch (InvalidCustomerException ex)
+            catch (InvalidException ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
@@ -65,7 +64,7 @@ namespace Sprint03.application.controller
                 var updatedCustomer = _customerAdapter.Update(id, customer);
                 return Ok(updatedCustomer);
             }
-            catch (CustomerNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(new { message = ex.Message });
             }
@@ -73,7 +72,7 @@ namespace Sprint03.application.controller
             {
                 return BadRequest(new { message = ex.Message });
             }
-            catch (InvalidCustomerException ex)
+            catch (InvalidException ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
@@ -91,7 +90,7 @@ namespace Sprint03.application.controller
                 _customerAdapter.Delete(id);
                 return NoContent();
             }
-            catch (CustomerNotFoundException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(new { message = ex.Message });
             }
