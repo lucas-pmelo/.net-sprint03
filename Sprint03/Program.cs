@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Sprint03.adapter.output.database; // Certifique-se de que este namespace esteja correto e tenha a classe ApplicationDbContext
+using Sprint03.adapter.output.database;
 using Sprint03.adapter.input;
 using Sprint03.domain.useCase;
 using Sprint03.domain.repository;
@@ -24,19 +24,26 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddControllers();
 
-//CUSTOMER
-builder.Services.AddScoped<ICustomerAdapter, CustomerAdapter>();
-builder.Services.AddScoped<ICustomerUseCase, CustomerUseCase>();
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+// CUSTOMER
+builder.Services.AddSingleton<ICustomerAdapter, CustomerAdapter>();
+builder.Services.AddSingleton<ICustomerUseCase, CustomerUseCase>();
+builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
 
 builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
 
-//AGREEMENT
-builder.Services.AddScoped<IAgreementAdapter, AgreementAdapter>();
-builder.Services.AddScoped<IAgreementUseCase, AgreementUseCase>();
-builder.Services.AddScoped<IAgreementRepository, AgreementRepository>();
+// AGREEMENT
+builder.Services.AddSingleton<IAgreementAdapter, AgreementAdapter>();
+builder.Services.AddSingleton<IAgreementUseCase, AgreementUseCase>();
+builder.Services.AddSingleton<IAgreementRepository, AgreementRepository>();
 
 builder.Services.AddScoped<IValidator<Agreement>, AgreementValidator>();
+
+// UNIT
+builder.Services.AddScoped<IUnitAdapter, UnitAdapter>();
+builder.Services.AddScoped<IUnitUseCase, UnitUseCase>();
+builder.Services.AddScoped<IUnitRepository, UnitRepository>();
+
+builder.Services.AddScoped<IValidator<Unit>, UnitValidator>();
 
 var app = builder.Build();
 

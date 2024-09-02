@@ -7,13 +7,31 @@ namespace Sprint03.adapter.output.database
 {
     public class CustomerRepository : ICustomerRepository
     {
+        private static CustomerRepository _instance;
+        private static readonly object _lock = new object();
         private readonly ApplicationDbContext _context;
 
-        public CustomerRepository(ApplicationDbContext context)
+        private CustomerRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        public static CustomerRepository GetInstance(ApplicationDbContext context)
+        {
+            if (_instance == null)
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new CustomerRepository(context);
+                    }
+                }
+            }
+            return _instance;
+        }
+
+        // Implementação dos métodos do repositório
         public Customer FindById(string id)
         {
             return _context.Customers.FirstOrDefault(c => c.Id == id);

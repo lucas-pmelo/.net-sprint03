@@ -9,5 +9,7 @@ namespace Sprint03.adapter.output.database
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Agreement> Agreements { get; set; }
+        public DbSet<Unit> Units { get; set; }
+
     }
 }
