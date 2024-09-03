@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Sprint03.infra.exception;
 using Sprint03.domain.model;
 using Sprint03.domain.repository;
@@ -9,32 +6,15 @@ namespace Sprint03.adapter.output.database
 {
     public class UnitRepository : IUnitRepository
     {
-        private static UnitRepository _instance;
-        private static readonly object _lock = new object();
         private readonly ApplicationDbContext _context;
 
-        // Construtor privado para evitar instanciação externa
-        private UnitRepository(ApplicationDbContext context)
+        // Construtor público
+        public UnitRepository(ApplicationDbContext context)
         {
             _context = context;
         }
-
-        // Método para obter a instância única da classe
-        public static UnitRepository GetInstance(ApplicationDbContext context)
-        {
-            if (_instance == null)
-            {
-                lock (_lock) // Garanta que a inicialização seja thread-safe
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new UnitRepository(context);
-                    }
-                }
-            }
-            return _instance;
-        }
-
+        
+        // Métodos para operações de CRUD
         public List<Unit> ListAll()
         {
             return _context.Units.ToList();

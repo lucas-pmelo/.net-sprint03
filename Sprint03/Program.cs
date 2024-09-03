@@ -25,16 +25,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllers();
 
 // CUSTOMER
-builder.Services.AddSingleton<ICustomerAdapter, CustomerAdapter>();
-builder.Services.AddSingleton<ICustomerUseCase, CustomerUseCase>();
-builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerAdapter, CustomerAdapter>();
+builder.Services.AddScoped<ICustomerUseCase, CustomerUseCase>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
 
 // AGREEMENT
-builder.Services.AddSingleton<IAgreementAdapter, AgreementAdapter>();
-builder.Services.AddSingleton<IAgreementUseCase, AgreementUseCase>();
-builder.Services.AddSingleton<IAgreementRepository, AgreementRepository>();
+builder.Services.AddScoped<IAgreementAdapter, AgreementAdapter>();
+builder.Services.AddScoped<IAgreementUseCase, AgreementUseCase>();
+builder.Services.AddScoped<IAgreementRepository, AgreementRepository>();
 
 builder.Services.AddScoped<IValidator<Agreement>, AgreementValidator>();
 

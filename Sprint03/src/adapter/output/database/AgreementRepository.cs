@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Sprint03.infra.exception;
 using Sprint03.domain.model;
 using Sprint03.domain.repository;
@@ -9,33 +6,14 @@ namespace Sprint03.adapter.output.database
 {
     public class AgreementRepository : IAgreementRepository
     {
-        private static AgreementRepository _instance;
-        private static readonly object _lock = new object();
         private readonly ApplicationDbContext _context;
 
-        // Construtor privado para evitar instanciação externa
-        private AgreementRepository(ApplicationDbContext context)
+        // Construtor público que aceita o ApplicationDbContext
+        public AgreementRepository(ApplicationDbContext context)
         {
             _context = context;
         }
-
-        // Método para obter a instância única da classe
-        public static AgreementRepository GetInstance(ApplicationDbContext context)
-        {
-            if (_instance == null)
-            {
-                lock (_lock) // Garanta que a inicialização seja thread-safe
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new AgreementRepository(context);
-                    }
-                }
-            }
-
-            return _instance;
-        }
-
+        
         public List<Agreement> ListAll()
         {
             return _context.Agreements.ToList();
@@ -78,7 +56,9 @@ namespace Sprint03.adapter.output.database
             {
                 throw new NotFoundException("Agreement not found.");
             }
+
+            _context.Agreements.Remove(agreement);
+            _context.SaveChanges();
         }
     }
 }
-           
