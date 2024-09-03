@@ -1,5 +1,7 @@
-- Definir a arquitetura da API, explicando a escolha entre uma abordagem monolítica ou microservices e justificando a decisão.
-- Implementar a API seguindo a arquitetura escolhida e explicar as diferenças.
+Augusto Barcelos Barros – RM: 98078
+Gabriel Souza de Queiroz – RM: 98570
+Lucas Pinheiro de Melo – RM: 97707
+Mel Maia Rodrigues – RM: 98266
 
 Definição da Arquitetura da API
 
