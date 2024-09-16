@@ -19,7 +19,9 @@ Uma das principais diferenças entre uma arquitetura monolítica e uma arquitetu
 
 No contexto do nosso projeto atual, onde o objetivo é criar uma solução eficiente e de fácil manutenção, a arquitetura monolítica se mostra mais adequada. Entretanto, à medida que o projeto evoluir, novas funcionalidades forem adicionadas e a complexidade do sistema aumentar, será natural considerar a migração para uma arquitetura de microservices. Isso permitirá uma melhor separação de domínios, facilitando a escalabilidade, a manutenção e a adição de novas funcionalidades de forma organizada e estruturada.
 
-Instruções para rodar o código:
+---
+
+##Instruções para rodar o código:
 Clone o repositório ou obtenha o código-fonte:
 
 Certifique-se de ter o código .NET localmente.
@@ -36,99 +38,113 @@ Acessar a API:
 
 Utilize um cliente HTTP como o Postman ou curl para interagir com os endpoints expostos.
 Endpoints disponíveis:
-AgreementController
-GET /api/agreement/{id}:
+## Endpoints
 
-Retorna o acordo (Agreement) com o ID especificado.
-Respostas:
-200 OK: Acordo encontrado.
-404 NotFound: Acordo não encontrado.
-400 BadRequest: ID inválido.
-GET /api/agreement:
+### AgreementController
 
-Retorna uma lista de todos os acordos.
-Respostas:
-200 OK: Lista de acordos.
-500 InternalServerError: Erro inesperado.
-POST /api/agreement:
+1. **GET /api/agreement/{id}**  
+   Retorna o acordo com o ID especificado.
+   - **Respostas**:
+     - `200 OK`: Acordo encontrado.
+     - `404 NotFound`: Acordo não encontrado.
+     - `400 BadRequest`: ID inválido.
 
-Cria um novo acordo.
-Body: Objeto JSON de Agreement.
-Respostas:
-201 Created: Acordo criado.
-400 BadRequest: Dados inválidos.
-PUT /api/agreement/{id}:
+2. **GET /api/agreement**  
+   Retorna uma lista de todos os acordos.
+   - **Respostas**:
+     - `200 OK`: Lista de acordos.
+     - `500 InternalServerError`: Erro no servidor.
 
-Atualiza um acordo existente.
-Body: Objeto JSON de Agreement.
-Respostas:
-200 OK: Acordo atualizado.
-404 NotFound: Acordo não encontrado.
-DELETE /api/agreement/{id}:
+3. **POST /api/agreement**  
+   Cria um novo acordo.
+   - **Body**: Objeto JSON de *Agreement*.
+   - **Respostas**:
+     - `201 Created`: Acordo criado.
+     - `400 BadRequest`: Dados inválidos.
 
-Exclui um acordo pelo ID.
-Respostas:
-204 NoContent: Acordo excluído.
-404 NotFound: Acordo não encontrado.
-CustomerController
-GET /api/customer/{id}:
+4. **PUT /api/agreement/{id}**  
+   Atualiza um acordo existente com o ID especificado.
+   - **Body**: Objeto JSON de *Agreement*.
+   - **Respostas**:
+     - `200 OK`: Acordo atualizado.
+     - `404 NotFound`: Acordo não encontrado.
+     - `400 BadRequest`: ID ou dados inválidos.
 
-Retorna o cliente (Customer) com o ID especificado.
-Respostas:
-200 OK: Cliente encontrado.
-404 NotFound: Cliente não encontrado.
-400 BadRequest: ID inválido.
-POST /api/customer:
+5. **DELETE /api/agreement/{id}**  
+   Exclui o acordo com o ID especificado.
+   - **Respostas**:
+     - `204 NoContent`: Acordo excluído.
+     - `404 NotFound`: Acordo não encontrado.
+     - `400 BadRequest`: ID inválido.
 
-Cria um novo cliente.
-Body: Objeto JSON de Customer.
-Respostas:
-201 Created: Cliente criado.
-400 BadRequest: Dados inválidos.
-PUT /api/customer/{id}:
+---
 
-Atualiza um cliente existente.
-Body: Objeto JSON de Customer.
-Respostas:
-200 OK: Cliente atualizado.
-404 NotFound: Cliente não encontrado.
-DELETE /api/customer/{id}:
+### CustomerController
 
-Exclui um cliente pelo ID.
-Respostas:
-204 NoContent: Cliente excluído.
-404 NotFound: Cliente não encontrado.
-UnitController
-GET /api/unit/{id}:
+1. **GET /api/customer/{id}**  
+   Retorna o cliente com o ID especificado.
+   - **Respostas**:
+     - `200 OK`: Cliente encontrado.
+     - `404 NotFound`: Cliente não encontrado.
+     - `400 BadRequest`: ID inválido.
 
-Retorna a unidade (Unit) com o ID especificado.
-Respostas:
-200 OK: Unidade encontrada.
-404 NotFound: Unidade não encontrada.
-400 BadRequest: ID inválido.
-GET /api/unit:
+2. **POST /api/customer**  
+   Cria um novo cliente.
+   - **Body**: Objeto JSON de *Customer*.
+   - **Respostas**:
+     - `201 Created`: Cliente criado.
+     - `400 BadRequest`: Dados inválidos.
 
-Retorna uma lista de todas as unidades.
-Respostas:
-200 OK: Lista de unidades.
-500 InternalServerError: Erro inesperado.
-POST /api/unit:
+3. **PUT /api/customer/{id}**  
+   Atualiza um cliente existente com o ID especificado.
+   - **Body**: Objeto JSON de *Customer*.
+   - **Respostas**:
+     - `200 OK`: Cliente atualizado.
+     - `404 NotFound`: Cliente não encontrado.
+     - `400 BadRequest`: ID ou dados inválidos.
 
-Cria uma nova unidade.
-Body: Objeto JSON de Unit.
-Respostas:
-201 Created: Unidade criada.
-400 BadRequest: Dados inválidos.
-PUT /api/unit/{id}:
+4. **DELETE /api/customer/{id}**  
+   Exclui o cliente com o ID especificado.
+   - **Respostas**:
+     - `204 NoContent`: Cliente excluído.
+     - `404 NotFound`: Cliente não encontrado.
+     - `400 BadRequest`: ID inválido.
 
-Atualiza uma unidade existente.
-Body: Objeto JSON de Unit.
-Respostas:
-200 OK: Unidade atualizada.
-404 NotFound: Unidade não encontrada.
-DELETE /api/unit/{id}:
+---
 
-Exclui uma unidade pelo ID.
-Respostas:
-204 NoContent: Unidade excluída.
-404 NotFound: Unidade não encontrada.
+### UnitController
+
+1. **GET /api/unit/{id}**  
+   Retorna a unidade com o ID especificado.
+   - **Respostas**:
+     - `200 OK`: Unidade encontrada.
+     - `404 NotFound`: Unidade não encontrada.
+     - `400 BadRequest`: ID inválido.
+
+2. **GET /api/unit**  
+   Retorna uma lista de todas as unidades.
+   - **Respostas**:
+     - `200 OK`: Lista de unidades.
+     - `500 InternalServerError`: Erro no servidor.
+
+3. **POST /api/unit**  
+   Cria uma nova unidade.
+   - **Body**: Objeto JSON de *Unit*.
+   - **Respostas**:
+     - `201 Created`: Unidade criada.
+     - `400 BadRequest`: Dados inválidos.
+
+4. **PUT /api/unit/{id}**  
+   Atualiza uma unidade existente com o ID especificado.
+   - **Body**: Objeto JSON de *Unit*.
+   - **Respostas**:
+     - `200 OK`: Unidade atualizada.
+     - `404 NotFound`: Unidade não encontrada.
+     - `400 BadRequest`: ID ou dados inválidos.
+
+5. **DELETE /api/unit/{id}**  
+   Exclui a unidade com o ID especificado.
+   - **Respostas**:
+     - `204 NoContent`: Unidade excluída.
+     - `404 NotFound`: Unidade não encontrada.
+     - `400 BadRequest`: ID inválido.
