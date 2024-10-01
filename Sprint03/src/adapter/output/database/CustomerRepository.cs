@@ -7,7 +7,6 @@ namespace Sprint03.adapter.output.database
     {
         private readonly ApplicationDbContext _context;
 
-        // Construtor público que aceita o ApplicationDbContext
         public CustomerRepository(ApplicationDbContext context)
         {
             _context = context;
